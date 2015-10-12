@@ -19,23 +19,11 @@
 # As such, it'll probably run on any Linux Kodi setup.
 #
 #
-# -----
-# Usage
-# -----
-# Ensure all configuration options below are set correctly, then just
-# run the script as the same user that runs Kodi. 
-# No arguments need
-#
-# ------------
-# Dependencies
-# ------------
-# bash shell environment
-# sqlite3 (most distro's will have this in their repo)
-# youtube-dl (available at https://rg3.github.io/youtube-dl/ )
+# Please see the included README.md file for more information
 #
 #
 # 
-# Copyright © 2015 Category <do-not-spam@yourmum.com>
+# Copyright © 2015 Category <spankyNO-SPAMquinton@googlemail.com>
 # This work is free. You can redistribute it and/or modify it under the
 # terms of the Do What The Fuck You Want To Public License, Version 2,
 # as published by Sam Hocevar. See the COPYING file for more details.
@@ -49,13 +37,13 @@
 #################
 
 
-ts_database="$HOME/CinemaExperience/TrailerScraperScript/LocalDB/MyVideos93.db"
+ts_database="$HOME/.kodi/userdata/Database/MyVideos93.db"
 # Location of your database file, normally "$HOME/.kodi/userdata/Database/MyVideos93.db"
 
-ts_trailerdir="$HOME/CinemaExperience/TrailerScraperScript/V2/Trailers/"
+ts_trailerdir="/path/to/your/trailer/folder/"
 # Location to save trailers
 
-ts_tempdir="$HOME/CinemaExperience/TrailerScraperScript/V2/temp/"
+ts_tempdir="/path/to/your/temporary/folder"
 # Location to store temporary woking files
 
 ts_maxsize=104857600
@@ -100,10 +88,10 @@ function trailer_dl {
 		echo YouTube ID: $YTCode
 		
 		echo Downloading trailer for $1
-		youtube-dl -q --restrict-filenames https://www.youtube.com/watch?v="$YTCode"
+		youtube-dl -q --restrict-filenames http://www.youtube.com/watch?v=$YTCode
 		
 		#Rename file for CinemaExperience trailers
-		YTFileName=$(youtube-dl --restrict-filenames --get-filename $YTCode)
+		YTFileName=$(youtube-dl --restrict-filenames --get-filename http://www.youtube.com/watch?v=$YTCode)
 		YTFileSize=$(wc -c <"$YTFileName")
 		
 		# Check size and remove if too large
@@ -186,6 +174,6 @@ rm $ts_tempdir"YTSearchList"
 rm $ts_tempdir"TopResult"
 
 
-echo Thanks for using my script! Have a nice day!
+echo Thanks for using QYTTS
 
 
