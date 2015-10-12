@@ -42,7 +42,7 @@ ts_database="$HOME/.kodi/userdata/Database/MyVideos93.db"
 ts_trailerdir="/path/to/your/trailer/folder/"
 # Location to save trailers
 
-ts_tempdir="/path/to/your/temporary/folder"
+ts_tempdir="/path/to/your/temporary/folder/"
 # Location to store temporary woking files
 
 ts_maxsize=104857600
@@ -86,7 +86,7 @@ function trailer_dl {
 
 
 		# Check if first result is a trailer
-		if [ $(cat $ts_tempdir"TopResult" | grep -i TRAILER | wc -l) ]
+		if [ $(cat $ts_tempdir"TopResult" | grep -i TRAILER | wc -l) = 1 ]
 		then
 			echo First result is a trailer, proceeding
 
