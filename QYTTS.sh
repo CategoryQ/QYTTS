@@ -107,7 +107,7 @@ function trailer_dl {
 			then
 				echo File too large, removing
 				rm "$YTFileName"
-				FailedDL=$FailedDL+1
+				let FailedDL=$FailedDL+1
 				return
 			else
 				cp "$YTFileName" $ts_trailerdir$YTNewName
@@ -118,7 +118,7 @@ function trailer_dl {
 			
 		else
 			echo Top YouTube result is not a trailer, skipping download
-			FailedDL=$FailedDL+1
+			let FailedDL=$FailedDL+1
 			return
 		fi
 		
