@@ -1,8 +1,7 @@
 #!/bin/bash
 #
 # #####################################################
-# QsYouTubeTrailerScraper - QYTTS
-# v0.2 - complete reworking of proof of concept version
+# QsYouTubeTrailerScraper - QYTTS - v0.3
 # #####################################################
 #
 # This script will scrape your Kodi library for movie titles, then search
@@ -71,7 +70,7 @@ function trailer_dl {
 	YTNewName=${YTNewName//:/-}".avi"
 	
 	
-	# Check if trailer already exists
+	# Check if local trailer already exists
 	if [ -e $ts_trailerdir$YTNewName ]
 	then
 		# File found
@@ -84,28 +83,46 @@ function trailer_dl {
 		# Scrape top result from YouTube search
 		curl -s https://www.youtube.com/results\?search_query\=$YTTarget | grep yt-uix-tile-link > $ts_tempdir"YTSearchList"
 		head -n 3 $ts_tempdir"YTSearchList" | tail -n 1 > $ts_tempdir"TopResult"
-		YTCode=$(cut -c85-95 $ts_tempdir"TopResult")
-		echo YouTube ID: $YTCode
-		
-		echo Downloading trailer for $1
-		youtube-dl -q --restrict-filenames http://www.youtube.com/watch?v=$YTCode
-		
-		#Rename file for CinemaExperience trailers
-		YTFileName=$(youtube-dl --restrict-filenames --get-filename http://www.youtube.com/watch?v=$YTCode)
-		YTFileSize=$(wc -c <"$YTFileName")
-		
-		# Check size and remove if too large
-		if [ $YTFileSize -gt $ts_maxsize ]
+
+
+		# Check if first result is a trailer
+		if [ $(cat $ts_tempdir"TopResult" | grep -i TRAILER | wc -l) ]
 		then
-			echo File too large, removing
-			rm "$YTFileName"
+			echo First result is a trailer, proceeding
+
+			
+			# Extract YouTube ID from result
+			YTCode=$(cut -c85-95 $ts_tempdir"TopResult")
+			echo YouTube ID: $YTCode
+		
+			echo Downloading trailer for $1
+			youtube-dl -q --restrict-filenames http://www.youtube.com/watch?v=$YTCode
+		
+			#Rename file for CinemaExperience trailers
+			YTFileName=$(youtube-dl --restrict-filenames --get-filename http://www.youtube.com/watch?v=$YTCode)
+			YTFileSize=$(wc -c <"$YTFileName")
+		
+			# Check size and remove if too large
+			if [ $YTFileSize -gt $ts_maxsize ]
+			then
+				echo File too large, removing
+				rm "$YTFileName"
+				FailedDL=$FailedDL+1
+				return
+			else
+				cp "$YTFileName" $ts_trailerdir$YTNewName
+				rm "$YTFileName"
+				echo Saved as $YTNewName
+			fi
+			
+			
+		else
+			echo Top YouTube result is not a trailer, skipping download
 			FailedDL=$FailedDL+1
 			return
-		else
-			cp "$YTFileName" $ts_trailerdir$YTNewName
-			rm "$YTFileName"
-			echo Saved as $YTNewName
 		fi
+		
+		
 	fi
 	
 	
@@ -119,7 +136,7 @@ function trailer_dl {
 # INITIALIZE #
 #            #
 echo QsYouTubeTrailerScraper - QYTTS
-echo v0.2 - complete reworking of proof of concept version
+echo v0.3 - added better trailer detection
 echo
 
 # Create clean temp files
@@ -160,7 +177,7 @@ done
 
 
 echo All Movies checked.
-
+echo Failed to find suitable trailer for $FailedDL films
 
 #          #
 # CLEANING #
@@ -175,5 +192,3 @@ rm $ts_tempdir"TopResult"
 
 
 echo Thanks for using QYTTS
-
-

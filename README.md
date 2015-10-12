@@ -1,7 +1,6 @@
 # QYTTS
 
-QsYouTubeTrailerScraper - QYTTS
-v0.2 - complete reworking of proof of concept version
+QsYouTubeTrailerScraper - QYTTS v0.3
 
 This script will scrape your Kodi library for movie titles, then search
 YouTube for it's trailer. It'll download the trailers to a specified
@@ -15,6 +14,14 @@ for any film, whether you have it or not.
 
 This was designed for my original Raspberry Pi Model B, running OSMC.
 As such, it'll probably run on any Linux Kodi setup.
+
+
+---------
+Changelog
+---------
+v0.3 - added better trailer detection
+v0.2 - complete reworking of proof of concept version
+v0.1 - proof of concept
 
 
 ----
@@ -41,20 +48,26 @@ youtube-dl
 ------------
 Known Issues
 ------------
--Grabbing entire films-
+Grabbing entire films
+
 Due to the simplicity of this script, it will grab the first YouTube result
-after searching for the movie name + "trailer". In the case of some films
-- mostly older or independent films - the first result on youtube will be
-the complete film. In that case, this script currently downloads the entire
-film, checks if it is larger than the maximum file size (default is 100MB),
-and if it is too large then deletes the file. I currently have no way to 
-check the file size before downloading, so I'm trying to think of another
-way around that to avoid unneccesary bandwidth usage....
+after searching for the movie name + "trailer". In the case of some films - 
+mostly older or independent films - the first result on youtube will be
+the complete film. To avoid this issue, there are 2 countermeasures - it
+will check the title of the YouTube video to ensure it contains the word
+"Trailer" (case insensitive). Secondly, after downloading it checks if it
+is larger than the maximum file size (default is 100MB), and if it is too 
+large then deletes the file. Unfortunately I have no way to check file size
+before downloading, so looking at extra ways of avoiding unnecessary 
+bandwidth usage...
+
+
  
 If you encounter any other issues, please raise an issue on github
 (https://github.com/CategoryQ/QYTTS)
  
- 
+
+
  
 Copyright © 2015 Category <spankyNO-SPAMquinton@googlemail.com>
 This work is free. You can redistribute it and/or modify it under the
