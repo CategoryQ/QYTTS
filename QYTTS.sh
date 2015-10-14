@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # #####################################################
-# QsYouTubeTrailerScraper - QYTTS - v0.3
+# QsYouTubeTrailerScraper - QYTTS - v0.4
 # #####################################################
 #
 # This script will scrape your Kodi library for movie titles, then search
@@ -129,23 +129,52 @@ function trailer_dl {
 }
 
 
+function Initialize {
+	cat /dev/null > $ts_tempdir"CurrentMovie"
+	cat /dev/null > $ts_tempdir"MovieList"
+	cat /dev/null > $ts_tempdir"YTSearchList"
+	cat /dev/null > $ts_tempdir"TopResult"
+	FailedDL=0
+}
 
 
+function CleanUp {
+	rm $ts_tempdir"CurrentMovie"
+	rm $ts_tempdir"MovieList"
+	rm $ts_tempdir"YTSearchList"
+	rm $ts_tempdir"TopResult"
+}
 
-#            #
-# INITIALIZE #
-#            #
+
+#              #
+# SCRIPT START #
+#              #
 echo QsYouTubeTrailerScraper - QYTTS
 echo v0.3 - added better trailer detection
 echo
 
+
+# Test for dependencies
+if [ $(which youtube-dl) ]
+then
+	echo youtube-dl found
+	if [ $(which sqlite3) ]
+	then
+		echo sqlite3 found
+		echo Dependencies met, continuing...
+	else
+		echo sqlite3 not installed, please see README
+		exit
+	fi
+else
+	echo youtube-dl not installed, please see README
+	exit
+fi
+
+
 # Create clean temp files
 echo Initializing...
-cat /dev/null > $ts_tempdir"CurrentMovie"
-cat /dev/null > $ts_tempdir"MovieList"
-cat /dev/null > $ts_tempdir"YTSearchList"
-cat /dev/null > $ts_tempdir"TopResult"
-FailedDL=0
+Initialize
 
 
 # Extract movie names from Kodi DB
@@ -185,10 +214,9 @@ echo Failed to find suitable trailer for $FailedDL films
 
 # Remove temp files
 echo Cleaning up...
-rm $ts_tempdir"CurrentMovie"
-rm $ts_tempdir"MovieList"
-rm $ts_tempdir"YTSearchList"
-rm $ts_tempdir"TopResult"
+CleanUp
 
 
+# Exit
 echo Thanks for using QYTTS
+exit
