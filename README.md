@@ -19,10 +19,10 @@ As such, it'll probably run on any Linux Kodi setup.
 ---------
 Changelog
 ---------
--v0.4 - added quick dependency check
--v0.3 - added better trailer detection
--v0.2 - complete reworking of proof of concept version
--v0.1 - proof of concept
+- v0.4 - added quick dependency check
+- v0.3 - added better trailer detection
+- v0.2 - complete reworking of proof of concept version
+- v0.1 - proof of concept
 
 
 ----
