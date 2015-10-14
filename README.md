@@ -1,6 +1,6 @@
 # QYTTS
 
-QsYouTubeTrailerScraper - QYTTS v0.3
+QsYouTubeTrailerScraper - QYTTS v0.4
 
 This script will scrape your Kodi library for movie titles, then search
 YouTube for it's trailer. It'll download the trailers to a specified
