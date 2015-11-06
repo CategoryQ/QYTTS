@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # #####################################################
-# QsYouTubeTrailerScraper - QYTTS - v0.4
+# QsYouTubeTrailerScraper - QYTTS - v0.5
 # #####################################################
 #
 # This script will scrape your Kodi library for movie titles, then search
@@ -22,7 +22,7 @@
 #
 #
 # 
-# Copyright © 2015 Category <spankyNO-SPAMquinton@googlemail.com>
+# Copyright © 2015 Category <categoryNOSPAM@quintendo.uk>
 # This work is free. You can redistribute it and/or modify it under the
 # terms of the Do What The Fuck You Want To Public License, Version 2,
 # as published by Sam Hocevar. See the COPYING file for more details.
@@ -107,7 +107,7 @@ function trailer_dl {
 			then
 				echo File too large, removing
 				rm "$YTFileName"
-				let FailedDL=$FailedDL+1
+				LogFailure
 				return
 			else
 				cp "$YTFileName" $ts_trailerdir$YTNewName
@@ -118,7 +118,7 @@ function trailer_dl {
 			
 		else
 			echo Top YouTube result is not a trailer, skipping download
-			let FailedDL=$FailedDL+1
+			LogFailure
 			return
 		fi
 		
@@ -128,21 +128,30 @@ function trailer_dl {
 	
 }
 
+function LogFailure {
+	# Log the titles of failed films
+	let FailedDL=$FailedDL+1
+	echo "$ScanFilm" >> $ts_tempdir"FailedFilms"
+}
 
 function Initialize {
+	# Get files/variables ready
 	cat /dev/null > $ts_tempdir"CurrentMovie"
 	cat /dev/null > $ts_tempdir"MovieList"
 	cat /dev/null > $ts_tempdir"YTSearchList"
 	cat /dev/null > $ts_tempdir"TopResult"
+	cat /dev/null > $ts_tempdir"FailedFilms"
 	FailedDL=0
 }
 
 
 function CleanUp {
+	# Remove temp files
 	rm $ts_tempdir"CurrentMovie"
 	rm $ts_tempdir"MovieList"
 	rm $ts_tempdir"YTSearchList"
 	rm $ts_tempdir"TopResult"
+	rm $ts_tempdir"FailedFilms"
 }
 
 
@@ -150,7 +159,7 @@ function CleanUp {
 # SCRIPT START #
 #              #
 echo QsYouTubeTrailerScraper - QYTTS
-echo v0.3 - added better trailer detection
+echo v0.5 - produce list of failed film at end of script
 echo
 
 
@@ -179,7 +188,7 @@ Initialize
 
 # Extract movie names from Kodi DB
 echo Extracting MovieList from Kodi database
-sqlite3 $ts_database "select c00 from movie;" >> $ts_tempdir"MovieList"
+sqlite3 $ts_database "select c00 from movie order by c00;" >> $ts_tempdir"MovieList"
 
 LineCount=$(wc -l < $ts_tempdir"MovieList")
 echo $LineCount movies found
@@ -206,7 +215,19 @@ done
 
 
 echo All Movies checked.
-echo Failed to find suitable trailer for $FailedDL films
+
+# Print list of failed films, so user can find get them manually
+if [ $FailedDL -gt 0 ]
+then
+	echo Failed to find trailers for the following $FailedDL movies...
+	echo -------------
+	cat $ts_tempdir"FailedFilms"
+	echo -------------
+	
+else
+	echo All missing trailers downloaded successfully
+fi
+
 
 #          #
 # CLEANING #

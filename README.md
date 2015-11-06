@@ -1,6 +1,6 @@
 # QYTTS
 #
-QsYouTubeTrailerScraper - QYTTS v0.4
+QsYouTubeTrailerScraper - QYTTS v0.5
 
 This script will scrape your Kodi library for movie titles, then search
 YouTube for it's trailer. It'll download the trailers to a specified
@@ -19,6 +19,7 @@ As such, it'll probably run on any Linux Kodi setup.
 ---------
 Changelog
 ---------
+- v0.5 - produce list of failed film at end of script - run alphabetically
 - v0.4 - added quick dependency check
 - v0.3 - added better trailer detection
 - v0.2 - complete reworking of proof of concept version
@@ -70,7 +71,7 @@ If you encounter any other issues, please raise an issue on github
 
 
  
-Copyright © 2015 Category <spankyNO-SPAMquinton@googlemail.com>
+Copyright © 2015 Category <categoryNOSPAM@quintendo.uk>
 This work is free. You can redistribute it and/or modify it under the
 terms of the Do What The Fuck You Want To Public License, Version 2,
 as published by Sam Hocevar. See the COPYING file for more details.
