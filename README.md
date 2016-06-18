@@ -19,6 +19,7 @@ As such, it'll probably run on any Linux Kodi setup.
 ---------
 Changelog
 ---------
+- v0.6 - updated base config for new version of Kodi database
 - v0.5 - produce list of failed film at end of script - run alphabetically
 - v0.4 - added quick dependency check
 - v0.3 - added better trailer detection

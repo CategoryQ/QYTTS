@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # #####################################################
-# QsYouTubeTrailerScraper - QYTTS - v0.5
+# QsYouTubeTrailerScraper - QYTTS - v0.6
 # #####################################################
 #
 # This script will scrape your Kodi library for movie titles, then search
@@ -36,8 +36,8 @@
 #################
 
 
-ts_database="$HOME/.kodi/userdata/Database/MyVideos93.db"
-# Location of your database file, normally "$HOME/.kodi/userdata/Database/MyVideos93.db"
+ts_database="$HOME/.kodi/userdata/Database/MyVideos99.db"
+# Location of your database file, normally "$HOME/.kodi/userdata/Database/MyVideos99.db"
 
 ts_trailerdir="/path/to/your/trailer/folder/"
 # Location to save trailers
@@ -159,7 +159,7 @@ function CleanUp {
 # SCRIPT START #
 #              #
 echo QsYouTubeTrailerScraper - QYTTS
-echo v0.5 - produce list of failed film at end of script
+echo v0.6 - updated base config for new version of Kodi database
 echo
 
 
