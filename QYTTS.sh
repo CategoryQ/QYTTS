@@ -96,7 +96,7 @@ function trailer_dl {
 			echo YouTube ID: $YTCode
 		
 			echo Downloading trailer for $1
-			youtube-dl -q --restrict-filenames http://www.youtube.com/watch?v=$YTCode
+			youtube-dl -q --restrict-filenames -f bestvideo http://www.youtube.com/watch?v=$YTCode
 		
 			#Rename file for CinemaExperience trailers
 			YTFileName=$(youtube-dl --restrict-filenames --get-filename http://www.youtube.com/watch?v=$YTCode)
@@ -159,7 +159,7 @@ function CleanUp {
 # SCRIPT START #
 #              #
 echo QsYouTubeTrailerScraper - QYTTS
-echo v0.6 - updated base config for new version of Kodi database
+echo v0.7 - fixed scraper, YT changes broke everything
 echo
 
 
