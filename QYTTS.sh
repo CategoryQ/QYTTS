@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # #####################################################
-# QsYouTubeTrailerScraper - QYTTS - v0.7
+# QsYouTubeTrailerScraper - QYTTS - v0.8
 # #####################################################
 #
 # This script will scrape your Kodi library for movie titles, then search
@@ -92,7 +92,7 @@ function trailer_dl {
 
 			
 			# Extract YouTube ID from result
-			YTCode=$(cut -c105-115 $ts_tempdir"TopResult")
+			YTCode=$(cut -c85-95 $ts_tempdir"TopResult")
 			echo YouTube ID: $YTCode
 		
 			echo Downloading trailer for $1
@@ -159,7 +159,7 @@ function CleanUp {
 # SCRIPT START #
 #              #
 echo QsYouTubeTrailerScraper - QYTTS
-echo v0.7 - fixed scraper, YT changes broke everything
+echo v0.8 - scraper udated - again - YT needs to stop changing
 echo
 
 
