@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # #####################################################
-# QsYouTubeTrailerScraper - QYTTS - v0.8
+# QsYouTubeTrailerScraper - QYTTS - v0.9
 # #####################################################
 #
 # This script will scrape your Kodi library for movie titles, then search
@@ -96,10 +96,11 @@ function trailer_dl {
 			echo YouTube ID: $YTCode
 		
 			echo Downloading trailer for $1
-			youtube-dl -q --restrict-filenames -f bestvideo http://www.youtube.com/watch?v=$YTCode
+			youtube-dl -q --restrict-filenames http://www.youtube.com/watch?v=$YTCode
 		
 			#Rename file for CinemaExperience trailers
 			YTFileName=$(youtube-dl --restrict-filenames --get-filename http://www.youtube.com/watch?v=$YTCode)
+			
 			YTFileSize=$(wc -c <"$YTFileName")
 		
 			# Check size and remove if too large
@@ -159,7 +160,7 @@ function CleanUp {
 # SCRIPT START #
 #              #
 echo QsYouTubeTrailerScraper - QYTTS
-echo v0.8 - scraper udated - again - YT needs to stop changing
+echo v0.9 - youtubedl filename handling corrected
 echo
 
 
