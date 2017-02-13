@@ -19,6 +19,7 @@ As such, it'll probably run on any Linux Kodi setup.
 ---------
 Changelog
 ---------
+- v0.10 - filename handling fixed this time, honest
 - v0.9 - youtubedl filename handling corrected
 - v0.8 - scraper udated - again - YT needs to stop changing
 - v0.7 - fixed scraper, YT changes broke everything

@@ -96,10 +96,10 @@ function trailer_dl {
 			echo YouTube ID: $YTCode
 		
 			echo Downloading trailer for $1
-			youtube-dl -q --restrict-filenames http://www.youtube.com/watch?v=$YTCode
+			youtube-dl -q --restrict-filenames -f best http://www.youtube.com/watch?v=$YTCode
 		
 			#Rename file for CinemaExperience trailers
-			YTFileName=$(youtube-dl --restrict-filenames --get-filename http://www.youtube.com/watch?v=$YTCode)
+			YTFileName=$(youtube-dl --restrict-filenames -f best --get-filename http://www.youtube.com/watch?v=$YTCode)
 			
 			YTFileSize=$(wc -c <"$YTFileName")
 		
