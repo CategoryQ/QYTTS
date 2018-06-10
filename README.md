@@ -1,3 +1,7 @@
+# NO MORE UPDATES WILL COME
+# Please head to https://notabug.org/Category for future updates
+# Because of MS acquisition, obvs
+
 # QYTTS
 #
 QsYouTubeTrailerScraper - QYTTS v0.9
